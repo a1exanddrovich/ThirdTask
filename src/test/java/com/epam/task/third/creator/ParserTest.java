@@ -9,7 +9,7 @@ public class ParserTest {
 
     private final static Parser PARSER = new Parser();
     private final static String STRING_TO_BE_PARSED_TO_POINT = "120.3 34.5";
-    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "2.0 35.6 40.65";
+    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "2.0 35.6 40.66";
 
     @Test
     public void parseTheStringToPoint() {
@@ -29,7 +29,7 @@ public class ParserTest {
     public void parseTheStringToTriangle() {
 
         //given
-        Triangle expected = new Triangle(2.0, 35.6, 40.65);
+        Triangle expected = new Triangle(2.0, 35.6, 40.66);
 
         //when
         Triangle actual = (Triangle) PARSER.parse(STRING_TO_BE_PARSED_TO_TRIANGLE);
