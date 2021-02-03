@@ -25,6 +25,11 @@ public class Parser {
             listOfValues.add(element);
         }
 
+        if(listOfValues.size() == 2) {
+            return new Point(listOfValues.get(0),
+                    listOfValues.get(1));
+        }
+
         return new Triangle(listOfValues.get(0),
                 listOfValues.get(1),
                 listOfValues.get(2));
