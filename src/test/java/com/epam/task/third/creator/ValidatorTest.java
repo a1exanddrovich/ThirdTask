@@ -11,7 +11,7 @@ public class ValidatorTest {
     public void validatorShouldReturnTrue() {
 
         //given
-        String stringToBeValidate = "2.5 3.65 42.42";
+        String stringToBeValidate = "2.5 3.65 42.42 32.76 51.19 78.87";
 
         //when
         boolean actual = VALIDATOR.validate(stringToBeValidate);

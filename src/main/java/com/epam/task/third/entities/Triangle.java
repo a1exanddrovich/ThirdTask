@@ -1,33 +1,51 @@
 package com.epam.task.third.entities;
 
-public class Triangle extends Shape {
+public class Triangle {
 
-    private final double firstSide;
-    private final double secondSide;
-    private final double thirdSide;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
+    private final double sideAB;
+    private final double sideBC;
+    private final double sideCA;
 
-    public Triangle(double firstSide, double secondSide, double thirdSide) {
-        this.firstSide = firstSide;
-        this.secondSide = secondSide;
-        this.thirdSide = thirdSide;
+    public Triangle(Point pointA, Point pointB, Point pointC) {
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
+        this.sideAB = Math.hypot(Math.abs(pointA.getX() - pointB.getX()), Math.abs(pointA.getY() - pointB.getY()));
+        this.sideBC = Math.hypot(Math.abs(pointB.getX() - pointC.getX()), Math.abs(pointB.getY() - pointC.getY()));
+        this.sideCA = Math.hypot(Math.abs(pointC.getX() - pointA.getX()), Math.abs(pointC.getY() - pointA.getY()));
     }
 
-    public double getFirstSide() {
-        return this.firstSide;
+    public double getSideAB() {
+        return this.sideAB;
     }
 
-    public double getSecondSide() {
-        return this.secondSide;
+    public double getSideBC() {
+        return this.sideBC;
     }
 
-    public double getThirdSide() {
-        return this.thirdSide;
+    public double getSideCA() {
+        return this.sideCA;
+    }
+
+    public Point getPointA() {
+        return this.pointA;
+    }
+
+    public Point getPointB() {
+        return this.pointB;
+    }
+
+    public Point getPointC() {
+        return this.pointC;
     }
 
     @Override
     public String toString() {
-        return "The sides' length of the triangle are " + this.getFirstSide() +
-                ", " + this.getSecondSide() + " and " + this.getThirdSide();
+        return "The vertices are " + this.getPointA().toString() +
+                ", " + this.getPointB().toString() + " and " + this.getPointC().toString();
     }
 
     @Override
@@ -43,9 +61,12 @@ public class Triangle extends Shape {
 
         Triangle triangleToBeCompared = (Triangle) object;
 
-        if( Double.compare(triangleToBeCompared.getFirstSide(), this.getFirstSide()) == 0 &&
-            Double.compare(triangleToBeCompared.getSecondSide(), this.getSecondSide()) == 0 &&
-            Double.compare(triangleToBeCompared.getThirdSide(), this.getThirdSide()) == 0) {
+        if( Double.compare(triangleToBeCompared.getSideAB(), this.getSideAB()) == 0 &&
+            Double.compare(triangleToBeCompared.getSideBC(), this.getSideBC()) == 0 &&
+            Double.compare(triangleToBeCompared.getSideCA(), this.getSideCA()) == 0 &&
+            triangleToBeCompared.getPointA().equals(this.getPointA()) &&
+            triangleToBeCompared.getPointB().equals(this.getPointB()) &&
+            triangleToBeCompared.getPointC().equals(this.getPointC())) {
             return true;
         } else {
             return false;
@@ -58,9 +79,9 @@ public class Triangle extends Shape {
 
         final int PRIME = 31;
         int result = 1;
-        result = PRIME * result + (int)getFirstSide();
-        result = PRIME * result + (int)getSecondSide();
-        result = PRIME * result + (int)getThirdSide();
+        result = PRIME * result + (int)getSideAB();
+        result = PRIME * result + (int)getSideBC();
+        result = PRIME * result + (int)getSideCA();
         return result;
 
     }

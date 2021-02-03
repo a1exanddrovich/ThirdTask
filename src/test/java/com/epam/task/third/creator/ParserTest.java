@@ -8,31 +8,18 @@ import org.junit.Test;
 public class ParserTest {
 
     private final static Parser PARSER = new Parser();
-    private final static String STRING_TO_BE_PARSED_TO_POINT = "120.3 34.5";
-    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "2.0 35.6 40.66";
-
-    @Test
-    public void parseTheStringToPoint() {
-
-        //given
-        Point expected = new Point(120.3, 34.5);
-
-        //when
-        Point actual = (Point) PARSER.parse(STRING_TO_BE_PARSED_TO_POINT);
-
-        //then
-        Assert.assertEquals(expected, actual);
-
-    }
+    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "2.0 35.6 40.66 66.56 42.42 55.55";
 
     @Test
     public void parseTheStringToTriangle() {
 
         //given
-        Triangle expected = new Triangle(2.0, 35.6, 40.66);
+        Triangle expected = new Triangle(new Point(2.0, 35.6),
+                                         new Point(40.66, 66.56),
+                                         new Point(42.42, 55.55));
 
         //when
-        Triangle actual = (Triangle) PARSER.parse(STRING_TO_BE_PARSED_TO_TRIANGLE);
+        Triangle actual = PARSER.parse(STRING_TO_BE_PARSED_TO_TRIANGLE);
 
         //then
         Assert.assertEquals(expected, actual);

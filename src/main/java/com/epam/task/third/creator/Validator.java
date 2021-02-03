@@ -9,14 +9,14 @@ public class Validator {
 
     public boolean validate(String stringToBeValidated) {
 
-        int countOfSymbols = 0;
+        int countOfValues = 0;
 
         for(int i = 0; i < stringToBeValidated.length(); i++) {
 
             char symbol = stringToBeValidated.charAt(i);
 
             if(symbol == '.') {
-                countOfSymbols++;
+                countOfValues++;
                 continue;
             }
 
@@ -31,12 +31,12 @@ public class Validator {
 
         }
 
-        if(countOfSymbols < 2) {
+        if(countOfValues < 5) {
             LOGGER.warn("The line \"" + stringToBeValidated + "\" has not been validated because of lack of the entered information");
             return false;
         }
 
-        if(countOfSymbols > 3) {
+        if(countOfValues > 6) {
             LOGGER.warn("The line \"" + stringToBeValidated + "\" has not been validated because of excess of the entered information");
             return false;
         }

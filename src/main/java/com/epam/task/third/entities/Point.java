@@ -1,6 +1,6 @@
 package com.epam.task.third.entities;
 
-public class Point extends Shape {
+public class Point {
 
     private final double x;
     private final double y;
@@ -20,7 +20,7 @@ public class Point extends Shape {
 
     @Override
     public String toString() {
-        return "The coordinates of the point are (" + this.getX() + ";" + this.getY() + ")";
+        return "(" + this.getX() + ";" + this.getY() + ")";
     }
 
     @Override

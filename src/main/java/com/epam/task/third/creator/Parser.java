@@ -1,7 +1,6 @@
 package com.epam.task.third.creator;
 
 import com.epam.task.third.entities.Point;
-import com.epam.task.third.entities.Shape;
 import com.epam.task.third.entities.Triangle;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ public class Parser {
 
     private static final String PATTERN_FOR_DOUBLE = "\\d+\\.\\d+";
 
-    public Shape parse(String stringToBeParsed) {
+    public Triangle parse(String stringToBeParsed) {
 
         List<Double> listOfValues = new ArrayList<>();
 
@@ -25,14 +24,9 @@ public class Parser {
             listOfValues.add(element);
         }
 
-        if(listOfValues.size() == 2) {
-            return new Point(listOfValues.get(0),
-                    listOfValues.get(1));
-        }
-
-        return new Triangle(listOfValues.get(0),
-                listOfValues.get(1),
-                listOfValues.get(2));
+        return new Triangle(new Point(listOfValues.get(0), listOfValues.get(1)),
+                            new Point(listOfValues.get(2), listOfValues.get(3)),
+                            new Point(listOfValues.get(4), listOfValues.get(5)));
 
     }
 
