@@ -9,7 +9,7 @@ public class ParserTest {
 
     private final static Parser PARSER = new Parser();
     private final static String STRING_TO_BE_PARSED_TO_POINT = "120.3 34.5";
-    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "(2.87;3.45) (4.54;6.42) (4.00;8.00)";
+    private final static String STRING_TO_BE_PARSED_TO_TRIANGLE = "2.0 35.6 40.65";
 
     @Test
     public void parseTheStringToPoint() {
