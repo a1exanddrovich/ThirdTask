@@ -1,46 +1,45 @@
 package com.epam.task.third;
 
-import com.epam.task.third.creator.Parser;
-import com.epam.task.third.creator.Validator;
+import com.epam.task.third.creator.TriangleParser;
+import com.epam.task.third.creator.DataValidator;
+import com.epam.task.third.creator.TriangleValidator;
 import com.epam.task.third.data.DataException;
 import com.epam.task.third.data.DataReader;
 import com.epam.task.third.entities.Point;
 import com.epam.task.third.entities.Triangle;
-import com.epam.task.third.logic.PointLogic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
-public class CreatorTest {
+public class TriangleCreatorTest {
 
-    private final static String FILENAME = "src/test.txt";
+    private final static String FILENAME = "src/resources/test.txt";
     private final static List<String> TEST_DATA = Arrays.asList("2.56 3.45 42.42 34.43 21.41 89.67");
 
     @Test
-    public void testCreator() throws DataException {
+    public void testCreator() throws DataException, IOException {
 
         //given
         DataReader reader = Mockito.mock(DataReader.class);
         when(reader.readData(FILENAME)).thenReturn(TEST_DATA);
 
-        Validator validator = Mockito.mock(Validator.class);
-        when(validator.validate(anyString())).thenReturn(true);
+        DataValidator validator = Mockito.mock(DataValidator.class);
+        when(validator.validateLine(anyString())).thenReturn(true);
 
-        Parser parser = Mockito.mock(Parser.class);
+        TriangleParser parser = Mockito.mock(TriangleParser.class);
         when(parser.parse(anyString())).thenReturn(new Triangle(new Point(2.56, 3.45),
                                                                 new Point(42.42, 34.43),
-                                                                new Point(21.41, 89.67)));
+                                                                new Point(21.41, 89.67), 2));
 
-        PointLogic canExist = Mockito.mock(PointLogic.class);
-        when(canExist.makeUpTriangle(new Point(2.56, 3.45),
-                                     new Point(42.42, 34.43),
-                                     new Point(21.41, 89.67))).thenReturn(true);
+        TriangleValidator triangleValidator = Mockito.mock(TriangleValidator.class);
+        when(triangleValidator.validateTriangle(anyString())).thenReturn(true);
 
-        Creator creator = new Creator(reader, validator, parser, canExist);
+        TriangleCreator creator = new TriangleCreator(reader, validator, parser, triangleValidator);
 
 
         //when
@@ -49,7 +48,7 @@ public class CreatorTest {
         //then
         Assert.assertEquals(new Triangle(new Point(2.56, 3.45),
                 new Point(42.42, 34.43),
-                new Point(21.41, 89.67)), actual);
+                new Point(21.41, 89.67), 2), actual);
 
     }
 

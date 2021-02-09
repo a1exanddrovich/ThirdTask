@@ -1,146 +1,83 @@
 package com.epam.task.third.logic;
 
+import com.epam.task.third.calculator.TriangleSideLengthCalculator;
 import com.epam.task.third.entities.Triangle;
-import com.epam.task.third.utilities.CheckForEquality;
 
 public class TriangleLogic {
 
-    private final static CheckForEquality CHECKER = new CheckForEquality();
+    private final TriangleSideLengthCalculator sideLengthCalculator;
 
-    public double calculatePerimeter(Triangle triangle) {
-
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
-
-        double perimeter = firstSide + secondSide + thirdSide;
-
-        return perimeter;
-
+    private boolean equal(double firstValue, double secondValue) {
+        return Math.abs(firstValue - secondValue) < 0.0001;
     }
 
-    public double calculateArea(Triangle triangle) {
-
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
-        double halfOfPerimeter = (firstSide + secondSide + thirdSide) / 2;
-
-        double area = Math.sqrt(halfOfPerimeter * (halfOfPerimeter - firstSide)
-        * (halfOfPerimeter - secondSide) * (halfOfPerimeter - thirdSide));
-
-        return area;
-
+    public TriangleLogic(TriangleSideLengthCalculator sideLengthCalculator) {
+        this.sideLengthCalculator = sideLengthCalculator;
     }
 
     public boolean isRightTriangle(Triangle triangle) {
+        double firstSide = sideLengthCalculator.calculateSideLength(triangle.getPointA(), triangle.getPointB());
+        double secondSide = sideLengthCalculator.calculateSideLength(triangle.getPointB(), triangle.getPointC());
+        double thirdSide = sideLengthCalculator.calculateSideLength(triangle.getPointC(), triangle.getPointA());
 
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
-
-        if(CHECKER.compare(firstSide, (Math.sqrt(Math.pow(secondSide, 2) + Math.pow(thirdSide, 2)))) ||
-           CHECKER.compare(secondSide, (Math.sqrt(Math.pow(firstSide, 2) + Math.pow(thirdSide, 2)))) ||
-           CHECKER.compare(thirdSide, (Math.sqrt(Math.pow(firstSide, 2) + Math.pow(secondSide, 2))))) {
-            return true;
-        }
-
-        return false;
-
+        return equal(firstSide, (Math.sqrt(Math.pow(secondSide, 2) + Math.pow(thirdSide, 2)))) ||
+                equal(secondSide, (Math.sqrt(Math.pow(firstSide, 2) + Math.pow(thirdSide, 2)))) ||
+                equal(thirdSide, (Math.sqrt(Math.pow(firstSide, 2) + Math.pow(secondSide, 2))));
     }
 
     public boolean isIsoscelesTriangle(Triangle triangle) {
+        double firstSide = sideLengthCalculator.calculateSideLength(triangle.getPointA(), triangle.getPointB());
+        double secondSide = sideLengthCalculator.calculateSideLength(triangle.getPointB(), triangle.getPointC());
+        double thirdSide = sideLengthCalculator.calculateSideLength(triangle.getPointC(), triangle.getPointA());
 
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
-
-        if(CHECKER.compare(firstSide, secondSide) ||
-           CHECKER.compare(firstSide, thirdSide) ||
-           CHECKER.compare(secondSide, thirdSide)) {
-            return true;
-        }
-
-        return false;
-
+        return equal(firstSide, secondSide) ||
+                equal(firstSide, thirdSide) ||
+                equal(secondSide, thirdSide);
     }
 
     public boolean isRegularTriangle(Triangle triangle) {
+        double firstSide = sideLengthCalculator.calculateSideLength(triangle.getPointA(), triangle.getPointB());
+        double secondSide = sideLengthCalculator.calculateSideLength(triangle.getPointB(), triangle.getPointC());
+        double thirdSide = sideLengthCalculator.calculateSideLength(triangle.getPointC(), triangle.getPointA());
 
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
-
-        if(CHECKER.compare(firstSide, secondSide) &&
-           CHECKER.compare(firstSide, thirdSide) &&
-           CHECKER.compare(secondSide, thirdSide)) {
-            return true;
-        }
-
-        return false;
-
+        return equal(firstSide, secondSide) &&
+                equal(firstSide, thirdSide) &&
+                equal(secondSide, thirdSide);
     }
 
     public boolean isAcuteAngledTriangle(Triangle triangle) {
-
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
+        double firstSide = sideLengthCalculator.calculateSideLength(triangle.getPointA(), triangle.getPointB());
+        double secondSide = sideLengthCalculator.calculateSideLength(triangle.getPointB(), triangle.getPointC());
+        double thirdSide = sideLengthCalculator.calculateSideLength(triangle.getPointC(), triangle.getPointA());
 
         if((firstSide > secondSide) && (firstSide > thirdSide)){
-            if(Math.pow(firstSide, 2) < (Math.pow(secondSide, 2) + Math.pow(thirdSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(firstSide, 2) < (Math.pow(secondSide, 2) + Math.pow(thirdSide, 2));
         }
-
         if((secondSide > thirdSide) && (secondSide > firstSide)){
-            if(Math.pow(secondSide, 2) < (Math.pow(firstSide, 2) + Math.pow(thirdSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(secondSide, 2) < (Math.pow(firstSide, 2) + Math.pow(thirdSide, 2));
         }
-
         if((thirdSide > firstSide) && (thirdSide > secondSide)){
-            if(Math.pow(thirdSide, 2) < (Math.pow(firstSide, 2) + Math.pow(secondSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(thirdSide, 2) < (Math.pow(firstSide, 2) + Math.pow(secondSide, 2));
         }
         return true;
     }
 
     public boolean isObtuseAngledTriangle(Triangle triangle) {
 
-        double firstSide = triangle.getSideAB();
-        double secondSide = triangle.getSideBC();
-        double thirdSide = triangle.getSideCA();
+        double firstSide = sideLengthCalculator.calculateSideLength(triangle.getPointA(), triangle.getPointB());
+        double secondSide = sideLengthCalculator.calculateSideLength(triangle.getPointB(), triangle.getPointC());
+        double thirdSide = sideLengthCalculator.calculateSideLength(triangle.getPointC(), triangle.getPointA());
 
         if((firstSide > secondSide) && (firstSide > thirdSide)){
-            if(Math.pow(firstSide, 2) > (Math.pow(secondSide, 2) + Math.pow(thirdSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(firstSide, 2) > (Math.pow(secondSide, 2) + Math.pow(thirdSide, 2));
         }
 
         if((secondSide > thirdSide) && (secondSide > firstSide)){
-            if(Math.pow(secondSide, 2) > (Math.pow(firstSide, 2) + Math.pow(thirdSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(secondSide, 2) > (Math.pow(firstSide, 2) + Math.pow(thirdSide, 2));
         }
 
         if((thirdSide > firstSide) && (thirdSide > secondSide)){
-            if(Math.pow(thirdSide, 2) > (Math.pow(firstSide, 2) + Math.pow(secondSide, 2))) {
-                return true;
-            } else {
-                return false;
-            }
+            return Math.pow(thirdSide, 2) > (Math.pow(firstSide, 2) + Math.pow(secondSide, 2));
         }
         return true;
     }

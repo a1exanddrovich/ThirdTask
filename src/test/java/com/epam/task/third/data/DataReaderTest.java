@@ -2,25 +2,30 @@ package com.epam.task.third.data;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
 public class DataReaderTest {
 
-    private final static String FILENAME = "src/main/resources/test.txt";
-    private final static List<String> EXPECTED = Arrays.asList("2.87 3.6 40", "qwerty", "2z 3 567 98");
+    private final String fileName = "src/main/resources/test.txt";
+    private final List<String> expected = Arrays.asList("32jjnc",
+                                                        "3.20 4.5 3.42 56.7 54.42 42.42 65.65",
+                                                        "3.20 4.5 3.42 56.7 54.42 42.42",
+                                                        "3.20 4.5");
 
     @Test
-    public void ShouldReadDataFromFile() throws DataException{
+    public void ShouldReadDataFromFile() throws DataException, IOException {
 
         //given
         DataReader reader = new DataReader();
 
         //when
-        List<String> actual = reader.readData(FILENAME);
+        List<String> actual = reader.readData(fileName);
 
         //then
-        Assert.assertEquals(EXPECTED, actual);
+        Assert.assertEquals(expected, actual);
 
     }
 
